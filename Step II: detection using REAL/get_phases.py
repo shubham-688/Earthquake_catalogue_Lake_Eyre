@@ -19,42 +19,43 @@ import shutil
 
 #' 4   2020 01 17 19:15:04.408    69304.408   1.4879     -29.7347     135.4510      10.0000     -inf      nan    8   10   18   177.39'
 # now, I do all three years, 2018,19, 20 in one go.
-phase_select="catalog/final_cat_good/phase_all_sg200.txt"
-phase_select_mine="catalog/final_cat_good/phase_all_sg200_mine.txt"
+phase_select="catalog/final_cat_round2/phase_sel.txt"
+phase_select_mine="catalog/final_cat_round2/phase_sel_mine.txt"
 f = open(phase_select,'w')
-fm = open(phase_select_mine,'w')
-for line1 in open("catalog/final_cat_good/cat_sg200_ALL.txt","r"):
+# fm = open(phase_select_mine,'w')
+for line1 in open("catalog/final_cat_round2/cat_sg200_ALL_2.txt","r"):
     i=0
     j=0
-    
-    #for line2 in open("catalog/phase_all_2020.txt","r"):
-    if float(line1.split()[7]) < -29 and float(line1.split()[8]) < 136:
-        for line2 in open("catalog/phase_ALL.txt","r"):
-            if line1.split()==line2.split():
-                i=int(line1.split()[14])+1 # gets the number of P+S picks from line1
-                # print(line2,outfile=phase_select)
-                # f.write('{}'.format(line2))
-            if j<i:
-            # print(line2,outfile=phase_select)
-                fm.write('{}'.format(line2))
-                j+=1
-            if j==i and j!=0:
-                break
-            # i=0
-    else:
-        for line2 in open("catalog/phase_ALL.txt","r"):
-            if line1.split()==line2.split():
-                i=int(line1.split()[14])+1 # gets the number of P+S picks from line1
-                # print(line2,outfile=phase_select)
-                # f.write('{}'.format(line2))
-            if j<i:
-            # print(line2,outfile=phase_select)
-                f.write('{}'.format(line2))
-                j+=1
-            if j==i and j!=0:
-                break
-            # i=0
 
-# event_file.close()
-# phase_all.close()
+    #for line2 in open("catalog/phase_all_2020.txt","r"):
+    # if float(line1.split()[7]) < -29 and float(line1.split()[8]) < 136:
+    for line2 in open("catalog/phase_ALL_2.txt","r"):
+        if line1.split()==line2.split():
+            i=int(line1.split()[14])+1 # gets the number of P+S picks from line1
+            # print(line2,outfile=phase_select)
+            # f.write('{}'.format(line2))
+        if j<i:
+        # print(line2,outfile=phase_select)
+            fm.write('{}'.format(line2))
+            j+=1
+        if j==i and j!=0:
+            break
+        # i=0
+
 f.close()
+
+sys.exit()
+
+else:
+    for line2 in open("catalog/phase_ALL.txt","r"):
+        if line1.split()==line2.split():
+            i=int(line1.split()[14])+1 # gets the number of P+S picks from line1
+            # print(line2,outfile=phase_select)
+            # f.write('{}'.format(line2))
+        if j<i:
+        # print(line2,outfile=phase_select)
+            f.write('{}'.format(line2))
+            j+=1
+        if j==i and j!=0:
+            break
+        # i=0
