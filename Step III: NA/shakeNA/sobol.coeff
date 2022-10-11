@@ -1,0 +1,27 @@
+% Initializing data for multi-dimensional Sobol-Antonov-Saleev
+% sequence generated randomly by routine NA_sas_table
+%
+% The number of initializing values must be equal to the degree 
+% and the i-th value is any odd integer < 2**i
+%
+        8            maximum number of independent sequences
+%
+% Be careful not to generate too many sequences
+% with low degree say < 5  because some may be
+% identical due to the limited number of possibilities
+%
+% The number of possible independent sequences is defined by the table
+%
+% DEG : 1  2  3   4    5     6       7         8            9           10
+% N   : 1  2  8  64 1024 32768 2097152 268435456 6.8719476E10 3.5184372E13
+%
+%               random seed used =      5590
+% deg   poly    Initializing values
+             5               4                1           1           7           1          29
+             5               7                1           1           3           7           9
+             5              11                1           3           7           7           5
+             5              13                1           3           5           5          29
+             5              14                1           3           7           1          11
+             5               2                1           3           3           5          19
+             5               4                1           3           7          11          11
+             5               7                1           1           5          11          23

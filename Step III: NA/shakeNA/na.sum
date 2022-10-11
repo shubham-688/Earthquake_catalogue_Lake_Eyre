@@ -1,0 +1,32 @@
+
+   Summary information of Neighbourhood algorithm performance
+
+------------------------------------------------------------------------
+
+  Options set:
+
+  Neighbourhood Algorithm
+  Initial sample size           :            9
+  Sample size                   :            9
+  Total number of iterations    :           30
+  Number of cells re-sampled    :            2
+  Length of walk in cell        :            1
+  Random seed value             :         5590
+  SAS Quasi-random sequence used
+  Starting models generated randomly 
+
+------------------------------------------------------------------------
+
+Parameter space details:
+
+  Number of dimensions           :            4
+  
+  Parameter ranges
+    Number   Minimum     Maximum    A-prior cov Scaled min  Scaled max
+      1      70.6480     74.6480      4.0000      0.0000      1.0000
+      2      55.3520     59.3520      4.0000      0.0000      1.0000
+      3       0.0000     30.0000     30.0000      0.0000      1.0000
+      4      39.9000     79.9000     40.0000      0.0000      1.0000
+
+------------------------------------------------------------------------
+

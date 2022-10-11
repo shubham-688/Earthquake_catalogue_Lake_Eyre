@@ -1,0 +1,94 @@
+  * INPUT
+
+ REGION: XINJIANG                                        
+ DATA:    PDE
+ DATE:
+  Year      1997
+  Month     IV  
+  Day        6
+  Hour       4
+  Minute    36
+  Second     30.000  Error    1.270
+ LOCATION:
+  Latitude   43.000  Error   16.100
+  Longitude  74.000  Error    7.200
+  Depth      10.000  Error   10.000
+ EVENTS read:
+ num evt =   15
+ numtim,numazi,numslo:  15  0  0
+ ACCURACY REQUIRED IN SOLUTION:
+  Latitude     0.250
+  Longitude    0.250
+  Depth       10.000
+  Time         0.500
+ STATIONS read:
+ num stat =   10
+ OPEN travel time tables 
+ Brnset:  the following phases have been selected -
+              1  P       
+              2  PKP       P       
+              3  PKiKP   
+             15  S       
+             16  SKS       S       
+
+ Initial bounds on quake location:
+                 MIN       MAX
+  LATITUDE    38.000    48.000
+  LONGITUDE   69.000    79.000
+  DEPTH        0.000   610.000
+  TIME (sec) -90.000   150.000
+
+ -----------------------------------
+ |                                 |
+ |     Parameter space search      |
+ | using a Neighbourhood Algorithm |
+ |                                 |
+ -----------------------------------
+
+iteration:   30,  misfit: min=   0.66199, mean=   0.66536, minc=   0.66242
+
+      lat       lon       dep       sec       misfit
+  1    39.520    76.878    11.055    34.252     0.667
+  2    39.519    76.873    11.071    34.200     0.664
+  3    39.525    76.870    11.080    34.294     0.670
+  4    39.523    76.870    10.836    34.250     0.668
+  5    39.517    76.871    11.221    34.288     0.662
+  6    39.518    76.865    11.423    34.153     0.666
+  7    39.522    76.865    11.264    34.212     0.663
+  8    39.520    76.866    11.567    34.286     0.663
+  9    39.521    76.870    11.436    34.228     0.665
+ 
+ * DISPLY
+              HYPOCENTRE SOLUTION      LI
+              ShakeNA program           PDE
+  DATE:
+    Year      1997                     1997
+    Month     IV                       IV  
+    Day        6                        6
+    Hour       4                        4
+    Minute    36                       36
+    Second      34.246                   30.000
+  LOCATION:
+    Latitude    39.519                   43.000
+    Longitude   76.868                   74.000
+    Depth       11.035                   10.000
+  RESIDUAL:          0.662                   13.634
+
+ Arrival Times for estimated hypocentre
+ CODE         HOUR MIN  SEC     RESID     chr  cmn  csec   delta     baz
+ NRIL P        4   42   48.10   -0.32      4   42   48.42   30.68      8.0
+ NRIL S        4   47   51.00    0.51      4   47   50.49   30.68      8.0
+ HIA  P        4   42   58.30    0.06      4   42   58.24   31.77     57.8
+ HIA  S        4   48    9.40    1.45      4   48    7.95   31.77     57.8
+ SSE  P        4   43   42.30    0.00      4   43   42.30   36.83     89.2
+ SSE  S        4   49   27.80    1.33      4   49   26.47   36.83     89.2
+ YAK  P        4   43   57.50   -1.08      4   43   58.58   38.80     36.8
+ YAK  S        4   49   53.60   -2.07      4   49   55.67   38.80     36.8
+ DPC  P        4   44   35.10    1.51      4   44   33.59   43.03    305.3
+ KBS  P        4   45    3.30    0.44      4   45    2.86   46.75    346.1
+ MAJO P        4   45    8.40   -1.54      4   45    9.94   47.59     73.2
+ MAJO S        4   52    3.80   -1.28      4   52    5.08   47.59     73.2
+ KMBO P        4   46    0.80    0.03      4   46    0.77   54.31    231.7
+ BGCA P        4   46   57.30   -1.48      4   46   58.78   62.61    252.9
+ DBIC P        4   48   39.50   -1.26      4   48   40.76   79.41    269.9
+ 
