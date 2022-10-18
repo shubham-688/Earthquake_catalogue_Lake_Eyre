@@ -1,0 +1,3 @@
+paste relocated_mine_na_aust.txt just_mags_mine_p_t.txt | awk '{print $1, $2,$3,$8,$4}' > relocated_mine_na_aust_mlv.txt
+
+paste relocated_eq_na.txt just_mags_p_t.txt | awk '{print $1, $2,$3,$8,$4}' > relocated_eq_na_aust_mlv.txt
