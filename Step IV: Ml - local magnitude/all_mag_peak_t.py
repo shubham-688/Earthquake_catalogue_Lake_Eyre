@@ -110,7 +110,7 @@ model = TauPyModel(model="iasp91")
 client = Client("IRIS")
 # client_aus=Client('http://auspass.edu.au:80')
 # inven_S1=client_aus.get_stations(network='S1',station='AUROX',channel='H*',level='response')
-client_5g=Client('http://auspass.edu.au:80',user='5g',password='grape71')
+client_5g=Client('http://auspass.edu.au:80',user='5g',password='')
 inventory = client_5g.get_stations(network="5G",station='*',level='response')
 inventory_au = client.get_stations(network="AU",station='MULG,OOD,LCRK',level='response')
 ##
