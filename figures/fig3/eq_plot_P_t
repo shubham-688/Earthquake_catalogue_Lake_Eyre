@@ -1,0 +1,140 @@
+#!/bin/csh
+#ogr2ogr -f "GMT" aus5wgd_l.gmt  aus5wgd_l.shp -t_srs WGS84
+set PS=map_pt.ps
+#set Rmap=-Rg
+#set Rmap=-R-135/40/-90/90
+set Rmap=-R130/142/-32.5/-24.5 # Lake_eyre+ Flinders
+#set J=-JM8/22
+set J=-JM12/11 #sa
+#set J=-Jx0.023i/0.029i
+
+set topogrd = /Users/shubham/Research/etopo/etopo_sa_15s.grd
+#set topogrd = ~/Research/etopo/etopo1.grd
+# set topoxyz = ~/Research/etopo/etopo1.xyz.
+
+set oleron = ~/Documents/ScientificColourMaps5/oleron/oleron.cpt
+set tpushuf = ~/Documents/cpt-city/tp/tpushuf
+set afrikakarte = ~/Documents/cpt-city/wkp/lilleskut/afrikakarte
+
+#set eq_real_all_18 = ~/Research/Lake_eyre_data/sAus_eq/picker/Real/REAL/catalog/final_cat_good/cat_sg200_2018_19.txt
+#set eq_real_all_19 = ~/Research/Lake_eyre_data/sAus_eq/picker/Real/REAL/catalog/final_cat_good/cat_sg200_2019.txt
+#set eq_real_all_20 = ~/Research/Lake_eyre_data/sAus_eq/picker/Real/REAL/catalog/final_cat_good/cat_sg200_2020.txt
+
+set eq_all_LE = ~/Research/earthquakes/ga_database/LE_allmag_alltime_FR.txt
+set eq_NA = ~/Dropbox/NA_temp/relocated_eqs/relocated_eq_na_aust.txt
+set eq_NA_ml = ~/Dropbox/NA_temp/mag_esti/relocated_eq_na_aust_mlv.txt
+set mine_NA = ~/Dropbox/NA_temp/relocated_eqs/relocated_mine_na_aust.txt
+set mine_NA_ml = ~/Dropbox/NA_temp/mag_esti/relocated_mine_na_aust_mlv.txt
+
+set eq_na_ml_F = relocated_FINAL_mlsorted.txt
+set mine_na_ml_F = relocated_mine_na_ml_FINAL.txt
+
+
+gmt6 gmtset MAP_FRAME_TYPE plain MAP_FRAME_WIDTH 4p FONT_ANNOT_PRIMARY 9.5p MAP_TICK_LENGTH_PRIMARY 4p MAP_FRAME_PEN 2.2p
+
+
+gmt6 psbasemap -BneWS -Bxa2f.5 -Bya2f.5 $J $Rmap -K >! $PS
+
+gmt6 makecpt -Cdark_red.cpt -T5/12/1 -Z -I > dark_reds.cpt
+
+
+# gmt6 grdimage $topogrd $J $Rmap -Bx -By -FRgray -Cafrikakarte.cpt -I+nt.85 -K -O >> $PS # original color
+gmt6 grdimage $topogrd $J $Rmap -Bx -By -Cfes.cpt -I+nt.85 -K -O >> $PS # gray scale
+
+gmt6 pscoast $Rmap $J -Bx -By -Na/.05p -A10 -P -K -Di -O -W.1p >> $PS #-A10+l -Ia
+
+
+# gmt6 psxy ~/Research/Lake_eyre_data/geological_ft/CrustalBoundaries.txt $Rmap $J -W1.05p,gray -O -K -V >> $PS ### crustal boundary
+# gmt6 psxy ~/Research/Lake_eyre_data/geological_ft/Gawler_Final.gmt $Rmap $J -W0.85p,darkblue,- -O -K >> $PS ### crustal boundary
+
+# gmt6 psxy ~/Research/Lake_eyre_data/geological_ft/Tectonic_Zones.gmt $Rmap $J -W0.55p,yellow, -O -K >> $PS ### crustal boundary
+
+# gmt6 psxy ~/Research/earthquakes/faults_ga_neales.txt $Rmap $J -: -W01.15p,yellow -O -K >> $PS ### neo_tectonics features
+# gmt6 psxy ~/Research/earthquakes/faults_ga_margaret.txt $Rmap $J -: -W01.15p,yellow -O -K >> $PS ### neo_tectonics features
+# gmt6 psxy ~/Research/earthquakes/faults_ga_cober.txt $Rmap $J -: -W01.15p,yellow -O -K >> $PS ### neo_tectonics features
+# gmt6 psxy ~/Research/earthquakes/faults_ga_karari.txt $Rmap $J -: -W01.15p,yellow -O -K >> $PS ### neo_tectonics features
+
+#Stations
+# gmt6 psxy ~/Research/Lake_eyre_data/station/old_mix_stuff/stations_all_BB.txt -: -W.05 -St.22 -GDarkSlateBlue@20 $J $Rmap -O -K >> $PS
+# gmt6 psxy ~/Research/Lake_eyre_data/station/old_mix_stuff/stations_all_SP.txt -: -W.05 -St.22 -GDarkSlateBlue@20 $J $Rmap -O -K >> $PS
+gmt6 psxy ~/Research/Lake_eyre_data/station/old_mix_stuff/per_st.txt -: -Ss.25 -Gblack $J $Rmap -O -K >> $PS
+awk '{print $1,$2+.25,$3}' ~/Research/Lake_eyre_data/station/old_mix_stuff/per_st.txt | gmt6 pstext $Rmap $J -: -F+f3.5p,Helvetica-Bold -Gwhite -O -P -K >> $PS
+
+#######
+
+# awk '{print $1,$2}' $eq_all_LE | gmt6 psxy $Rmap $J -: -Sc.05 -Gblack -B -O -P -K >> $PS #GA catalog all LE eq white circles
+
+# awk '{print $1,$2,$3,$4*.12}' $eq_na_ml_F | gmt6 psxy $Rmap $J -: -Sc -W.15,black -Cdark_reds.cpt -t10 -B -O -P -K >> $PS # eq
+# awk '{print $1,$2,$4*.12}' $mine_na_ml_F | gmt6 psxy $Rmap $J -: -Sc -W.15,black -Gwhite@80 -B -O -P -K >> $PS # mine
+### GA_18_20_eq.txt
+#awk '{print $1,$2,$3*.1}' GA_18_20_eq.txt | gmt6 psxy $Rmap $J -: -Sc -W.15,black -Gwhite@10 -B -O -P -V -K >> $PS # mine
+####
+#P_T #darkolivegreen for BW
+# darkslategray for color topo
+###round_1 fms
+# awk '{print $1,$2,$3}' fm_Strike_slip_p_t_clean.txt | gmt6 psxy $Rmap $J  -Sc.15 -W.5,black -t10 -B -O -P -K >> $PS # eq
+awk '{print $1,$2,$10,.5c}' fm_Strike_slip_p_t_clean.txt | gmt6 psxy $Rmap $J  -SV.85c -W1.5,indianred -V -B -O -P -K >> $PS # eq
+awk '{print $1,$2,$10+180,.5c}' fm_Strike_slip_p_t_clean.txt | gmt6 psxy $Rmap $J  -SV.85c -W1.5,indianred -V -B -O -P -K >> $PS # eq
+
+#awk '{if ($6 != "D" && $6 != "E" ) {print $0}} ' wsm_aus.txt
+awk '{if ($6 == "D" || $6 == "E") print $2,$1,$3,.3c}' wsm_aus.txt | gmt6 psxy $Rmap $J  -SV.3c -W.65,dimgray -V -B -O -P -K >> $PS # eq
+awk '{if ($6 == "D" || $6 == "E") print $2,$1,$3+180,.3c}' wsm_aus.txt | gmt6 psxy $Rmap $J  -SV.3c -W.65,dimgray -V -B -O -P -K >> $PS # eq
+
+awk '{if ($6 == "A") print $2,$1,$3,.5c}' wsm_aus.txt | gmt6 psxy $Rmap $J  -SV.5c -W.65,black -V -B -O -P -K >> $PS # eq
+awk '{if ($6 == "A") print $2,$1,$3+180,.5c}' wsm_aus.txt | gmt6 psxy $Rmap $J  -SV.5c -W.65,black -V -B -O -P -K >> $PS # eq
+#
+awk '{if ($6 == "B") print $2,$1,$3,.4c}' wsm_aus.txt | gmt6 psxy $Rmap $J  -SV.4c -W.65,black -V -B -O -P -K >> $PS # eq
+awk '{if ($6 == "B") print $2,$1,$3+180,.4c}' wsm_aus.txt | gmt6 psxy $Rmap $J  -SV.4c -W.65,black -V -B -O -P -K >> $PS # eq
+#
+awk '{if ($6 == "C") print $2,$1,$3,.3c}' wsm_aus.txt | gmt6 psxy $Rmap $J  -SV.3c -W.65,black -V -B -O -P -K >> $PS # eq
+awk '{if ($6 == "C") print $2,$1,$3+180,.3c}' wsm_aus.txt | gmt6 psxy $Rmap $J  -SV.3c -W.65,black -V -B -O -P -K >> $PS # eq
+
+
+
+echo 137.3 -28.4 Lake | gmt6 pstext $Rmap $J -F+f6p,Courier -O -P -K  >> $PS
+echo 137.3 -28.55 Eyre | gmt6 pstext $Rmap $J -F+f6p,Courier -O -P -K  >> $PS
+
+#gmt6 psxy $Rmap $J mine_sa.txt -Sc.3 -Gwhite -B -O -P -K >> $PS
+# gmt6 psxy $Rmap $J mine_sa.txt -Sx.28 -W2.5,black -B -O -P -K >> $PS
+#gmt6 psxy $Rmap $J mine_sa.txt -Sx.3 -W1.5,SlateGray -B -O -P -K >> $PS
+
+gmt6 psbasemap -B -V $J $Rmap -O -P -K >> $PS
+
+# gmt6 psscale -Dx10c/.6c+w1.5c/.18c+e -O -Cgraay.cpt -Bx5 -By+l"Depth (km)" -K -P >> $PS
+#################
+#pstext station_Sa.txt $Rmap $J -P -F+f6p,Helvetica,=0.6p,darkgreen -O -B -K >> map.ps
+
+ #-A10+l -Ia
+gmt6 gmtset FONT_ANNOT_PRIMARY 8p MAP_FRAME_PEN .8p FONT_LABEL 7.5p
+# gmt6 psscale -Dx11.2c/1.4c+w2.6c/.24c+e -O -K -G-100/700 -Cafrikakarte.cpt -Bx200 -By+l"m"  >> $PS #-G-100/1000
+
+# gmt6 psscale -Dx11.2c/2.2c+w4c/.24c+e -O -K -Cdark_reds.cpt -Bx3 -Bx+l"Depth (km)" >> $PS
+#gmt6 pslegend -Dx1.2c/4c+w2.4c/1.6c+o-1c/-.5c -F+gwhite+p.1 -O -K $J $Rmap << EOF >> $PS
+gmt6 pslegend -Dx1.2c/2c+w2.2c/1.5c+o-1c/-.5c -F+gwhite+p.1 -O $J $Rmap << EOF >> $PS
+S 0.2c - 0.3c - 1.5p,indianred 0.2i P axis
+S 0.2c - 0.3c - 1.25p,black 0.2i S@-hmax@- (A-C)
+S 0.2c - 0.3c - 1.25p,dimgray 0.2i S@-hmax@- (D-E)
+#S 0.2c t 0.3c DarkSlateBlue - 0.2i 5G
+#S 0.2c t 0.3c darkgreen - 0.2i 5G
+S 0.2c s 0.22c Black - 0.2i ANSN
+#S 0.2c c 0.15c darkred@40 - 0.2i Mlv 1
+#S 0.2c c 0.36c darkred@40 - 0.2i Mlv 3
+#S 0.2c a 0.35c darkgreen - 0.2i Eq #2
+# S 0.2c c 0.1c black .25p,black 0.2i GA eq
+#S 0.2c x 0.2c - .95p,firebrick 0.2i Eq (R_19 < 200)
+#S 0.2c x 0.2c - .95p,SlateGray  0.2i Mines
+EOF
+
+####LEGEND
+# gmt6 pslegend -DJLT+w2.15c/.27c+o-2.15c/-.27c -F+gwhite@10+p.05 -O $J $Rmap << EOF >> $PS
+# # #S 0.2c s 0.3c DarkOrange - 0.2i 1Ds-1Dp
+# EOF
+
+#pstext $J $Rmap -P -O -K <<End >> $PS
+#-40 -7 18 0 31 1 (b)
+#End
+
+gmt6 ps2raster -A -Tj -E720 -P -Z -Vq $PS
+open map_pt.jpg
+# cp map.pdf ~/Dropbox/map_na_aust_ml1.pdf
+###
